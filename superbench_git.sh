@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+# 一键检测Linux VPS/服务器配置、IO、国内节点下载测速
 # Description: Auto system info & I/O test & network to China script
 #
 # Copyright (C) 2017 - 2020 Oldking <oooldking@gmail.com>
