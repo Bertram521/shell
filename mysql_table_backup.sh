@@ -15,9 +15,9 @@ if [ -d $BACKUP_DIR ];
 then
      mkdir -p $BACKUP_DIR/$DATE/jesscard
      cd $BACKUP_DIR/$DATE
-for table in $(mysql -u${DB_USER} -p${DB_PASSWD} -h'10.112.28.124'  -e "show tables from jescard_data;" | egrep -w '(BrandR|Brand|Category|CategoryR|IgnoredEntitySource|Mall|RelevanceSession|SkuGood|SpuGood|LowestSku|HightestSku|GoodsLanguage|BrandLanguage)')
+for table in $(mysql -u${DB_USER} -p${DB_PASSWD} -h'10.112.28.184'  -e "show tables from bertram_data;" | egrep -w '(BrandR|Brand|Category|CategoryR|BrandLanguage)')
 do
-     mysqldump  -u${DB_USER} -p${DB_PASSWD} -h'10.112.28.124' --opt --lock-tables=false --routines --triggers --events --single-transaction --default-character-set=utf8 -f jescard_data $table | gzip >  $BACKUP_DIR/$DATE/jesscard/${table}.sql.gz
+     mysqldump  -u${DB_USER} -p${DB_PASSWD} -h'10.112.28.184' --opt --lock-tables=false --routines --triggers --events --single-transaction --default-character-set=utf8 -f bertram_data $table | gzip >  $BACKUP_DIR/$DATE/${table}.sql.gz
 done   
     
     if [ -d $BACKUP_DIR ];
