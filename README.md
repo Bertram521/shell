@@ -1,3 +1,4 @@
+
 一.简介
 Shell 脚本（shell script），是一种为 shell 编写的脚本程序。
 
@@ -11,3 +12,5 @@ Shell 脚本（shell script），是一种为 shell 编写的脚本程序。
 4.redis  启动脚本
 
 5.restore.sh 多表还原
+
+6.backup_file.yml 远程批量备份文件
