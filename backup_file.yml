@@ -1,0 +1,34 @@
+---
+# 远程备份相关服务及系统文件 
+- hosts: "{{ host }}"
+  user: "{{ user }}"
+  # 禁止 Ansible 收集 facts（Ansible facts 是远程系统的信息） 信息
+  gather_facts: False
+  vars:
+    - work_dir: "/data/backupfile/{{datetime.stdout}}"
+  tasks:
+  - name: register var
+    command: date +"%F"
+    register: datetime
+  - name: Create a backup directory.
+    file: 
+      dest: "{{work_dir}}"
+      state: directory
+  - name: Back up system related files.
+    copy:
+      src: '{{ item.src }}'
+      dest: "{{ work_dir}}/"
+      mode: 0700
+    with_items:
+    - { src: '/etc/hosts' }
+    - { src: '/etc/fstab' }
+    - { src: '/etc/rc.local' }
+    - { src: '/var/spool/cron' }
+    - { src: '/data/scripts' }
+  - name: Back up mysql database configuration files.
+    copy: src=/etc/my.cnf dest={{ work_dir}}/{{ hostname }}_my.cnf mode=0644
+    ignore_errors: true
+    # 当ignore_errors = true 的时候 语句如果执行失败也不会导致程序执行中止，继续运行下面的语句
+  - name: Back up mongodb database configuration files.
+    copy: src=/etc/mongodb.cnf dest={{ work_dir}}/{{ hostname }}_mongodb.cnf mode=0644
+    ignore_errors: true
